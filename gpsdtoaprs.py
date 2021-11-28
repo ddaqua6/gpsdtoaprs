@@ -1,7 +1,11 @@
 import gpsd
-gpsd.connect()
-pos = gpsd.get_current()
-pars = pos.position()
+try:
+  gpsd.connect()
+  pos = gpsd.get_current()
+  pars = pos.position()
+except UserWarning:
+  print("ERROR: GPS is not active")
+  pars = [0.00, 0.00]
 def lat():
   final = pars[0] * 100
   final = "{:.2f}".format(final)
